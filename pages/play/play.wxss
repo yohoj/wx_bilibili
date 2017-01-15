@@ -1,0 +1,7 @@
+.play {
+  width: 100%;
+}
+
+.play video{
+  width: 100%;
+}

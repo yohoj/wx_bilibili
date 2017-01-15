@@ -1,0 +1,80 @@
+<view class="index">
+  <view class="nav-scroll">
+    <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%">
+      <text wx:for="{{section}}" wx:key="id" id="{{item.id}}" catchtap="handleTap"
+            class="nav-name {{item.id == currentId ? 'nav-hover' : ''}}"
+            style=" padding-right:{{topdistance}}px;padding-left:{{topdistance}}px">{{item.name}}</text>
+    </scroll-view>
+  </view>
+  <!-- 首页 -->
+  <block wx:if="{{currentId == 1001}}">
+    <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{1000}}" circular="{{true}}">
+      <block wx:for="{{webshowInfo}}" wx:key="pic" id="webshowinfo" wx:for-item="webitem" wx:for-index="webindex">
+        <swiper-item>
+          <image src="{{webitem.pic}}" class="slide-image" id="{{webindex}}"  />
+        </swiper-item>
+      </block>
+    </swiper>
+    <view class="section {{titlename.length?'show':'hide'}}">
+      <block wx:for="{{titlename}}" wx:key="titleitem" wx:for-item="nameitem" wx:for-index="titleindex">
+        <view class="section_single">
+          <view class="section__news">
+            <view class="section__title">
+              <text class="text">{{nameitem.name}}</text>
+            </view>
+            <text class="more">
+              查看更多更新>
+            </text>
+          </view>
+          <view class="list-flex">
+            <block wx:for="{{4}}" wx:key="detail" id="ad" wx:for-item="detailitem">
+              <view class="listBox">
+              <navigator url="../play/play?aid={{videoInfo[titleindex][detailitem].aid}}">
+                <view class="boxPic">
+                  <image src="{{videoInfo[titleindex][detailitem].pic}}"  />
+                  <text class="title">{{videoInfo[titleindex][detailitem].title}}</text>
+                  <view class="detail">
+                    <block wx:if="{{videoInfo[titleindex][detailitem].play>10000}}">
+                      <!-- P为播放量，R为评价量 -->
+                      <text>P:{{(videoInfo[titleindex][detailitem].play-videoInfo[titleindex][detailitem].play%1000)/10000}}万</text>
+                      <!-- 保留一位小数 -->
+                    </block>
+                    <block wx:if="{{videoInfo[titleindex][detailitem].play<10000}}">
+                      <text>P:{{videoInfo[titleindex][detailitem].play}}</text>
+                    </block>
+                    <block wx:if="{{videoInfo[titleindex][detailitem].video_review>10000}}">
+                      <text>R:{{(videoInfo[titleindex][detailitem].video_review-videoInfo[titleindex][detailitem].video_review%1000)/10000}}万</text>
+                    </block>
+                    <block wx:if="{{videoInfo[titleindex][detailitem].video_review<10000}}">
+                      <text>R:{{videoInfo[titleindex][detailitem].video_review}}</text>
+                    </block>
+                  </view>
+                </view>
+                 </navigator>
+              </view>
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+  <!-- 频道 -->
+  <block wx:if="{{currentId == 1002}}">
+    <view class="channel">
+      <block wx:for="{{channelname}}" wx:key="channelnum" wx:for-item="channelnumitem">
+        <view class="channel_single" style="width:{{channeldistance}}px">
+          <view class="channel_noname">
+           <view class="updatenum">
+              <text>99+</text>
+            </view>
+            <image src="../../img/channel_ent@2x.png"
+                   style="width:{{channeldistance-20}}px;height:{{channeldistance-20}}px"  />
+          </view>
+          <view class="channel_name">
+            <text>{{channelnumitem.name}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+</view>
